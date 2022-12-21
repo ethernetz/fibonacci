@@ -34,7 +34,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./client
-        file: Dockerfile
+        file: ./client/Dockerfile
         push: true
         tags: ethernetz/fibonacci-client:latest
 
@@ -56,7 +56,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./api
-        file: Dockerfile
+        file: ./api/Dockerfile
         push: true
         tags: ethernetz/fibonacci-api:latest
 
@@ -78,7 +78,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./nginx
-        file: Dockerfile
+        file: ./nginx/Dockerfile
         push: true
         tags: ethernetz/fibonacci-nginx:latest
 
@@ -100,6 +100,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./worker
-        file: Dockerfile
+        file: ./worker/Dockerfile
         push: true
         tags: ethernetz/fibonacci-worker:latest
