@@ -7,4 +7,4 @@ on:
 
 jobs:
   run_tests:
-    uses: ./.github/workflows/run-test-suite.yml
+    uses: ./.github/workflows/run-test-suite.yaml

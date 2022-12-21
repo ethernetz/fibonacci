@@ -6,7 +6,7 @@ on:
 
 jobs:
   run_tests:
-    uses: ./.github/workflows/run-test-suite.yml
+    uses: ./.github/workflows/run-test-suite.yaml
 
   deploy_client_to_docker:
     name: Deploy client to docker
