@@ -5,20 +5,10 @@ on:
     - master
 
 jobs:
-  client_tests:
-    name: Run client test suite
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Build and run client tests
-      run: CI=true docker-compose -f docker-compose-dev.yml up --build client-tests
 
   deploy_client_to_docker:
     name: Deploy client to docker
-    needs: client_tests
+    needs: ./.github/workflows/run-test-suite.yml
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -40,7 +30,7 @@ jobs:
 
   deploy_api_to_docker:
     name: Deploy api to docker
-    needs: client_tests
+    needs: ./.github/workflows/run-test-suite.yml
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -62,7 +52,7 @@ jobs:
 
   deploy_nginx_to_docker:
     name: Deploy nginx to docker
-    needs: client_tests
+    needs: ./.github/workflows/run-test-suite.yml
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -84,7 +74,7 @@ jobs:
 
   deploy_worker_to_docker:
     name: Deploy worker to docker
-    needs: client_tests
+    needs: ./.github/workflows/run-test-suite.yml
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
