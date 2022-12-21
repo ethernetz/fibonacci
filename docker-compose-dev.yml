@@ -50,3 +50,12 @@ services:
       - ./client:/home/node/app
     environment:
       - WDS_SOCKET_PORT=0
+  client-tests:
+    build:
+      dockerfile: Dockerfile.test
+      context: ./client
+    environment:
+      - CI
+    volumes:
+      - /home/node/app/node_modules
+      - ./client:/home/node/app
