@@ -102,6 +102,8 @@ jobs:
     needs: [push_client_to_docker, push_api_to_docker, push_nginx_to_docker, push_worker_to_docker]
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: Generate deployment package
       run: zip deploy.zip docker-compose.yml
     - name: Deploy to EB
