@@ -99,7 +99,7 @@ jobs:
 
   deploy_to_eb:
     name: Deploy to Elastic Beanstalk
-    needs: [push_client_to_docker, push_api_to_docker, push_nginx_to_docker, push_worker_to_docker]
+    # needs: [push_client_to_docker, push_api_to_docker, push_nginx_to_docker, push_worker_to_docker]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
