@@ -103,9 +103,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Generate deployment package
-      run: zip -r deploy.zip docker-compose.yml
+      run: zip deploy.zip docker-compose.yml
     - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v14
+      uses: einaregilsson/beanstalk-deploy@v18
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
         aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
