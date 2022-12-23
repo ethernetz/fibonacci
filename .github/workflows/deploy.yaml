@@ -1,4 +1,4 @@
-name: Run tests and deploy to AWS
+name: Run tests, build, push, and deploy
 on:
   push:
     branches:
@@ -9,8 +9,8 @@ jobs:
     name: Run test suite
     uses: ./.github/workflows/run-test-suite.yaml
 
-  deploy_client_to_docker:
-    name: Deploy client to docker
+  push_client_to_docker:
+    name: Push client to Docker
     needs: run_tests
     runs-on: ubuntu-latest
     steps:
@@ -31,8 +31,8 @@ jobs:
         push: true
         tags: ethernetz/fibonacci-client:latest
 
-  deploy_api_to_docker:
-    name: Deploy api to docker
+  push_api_to_docker:
+    name: Push api to Docker
     needs: run_tests
     runs-on: ubuntu-latest
     steps:
@@ -53,8 +53,8 @@ jobs:
         push: true
         tags: ethernetz/fibonacci-api:latest
 
-  deploy_nginx_to_docker:
-    name: Deploy nginx to docker
+  push_nginx_to_docker:
+    name: Push nginx to Docker
     needs: run_tests
     runs-on: ubuntu-latest
     steps:
@@ -75,8 +75,8 @@ jobs:
         push: true
         tags: ethernetz/fibonacci-nginx:latest
 
-  deploy_worker_to_docker:
-    name: Deploy worker to docker
+  push_worker_to_docker:
+    name: Push worker to Docker
     needs: run_tests
     runs-on: ubuntu-latest
     steps:
@@ -96,3 +96,22 @@ jobs:
         file: ./worker/Dockerfile
         push: true
         tags: ethernetz/fibonacci-worker:latest
+
+  deploy_to_eb:
+    name: Deploy to Elastic Beanstalk
+    needs: [push_client_to_docker, push_api_to_docker, push_nginx_to_docker, push_worker_to_docker]
+    runs-on: ubuntu-latest
+    - name: Deploy to EB
+    steps:
+    - name: Generate deployment package
+      run: zip -r deploy.zip docker-compose.yml
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v14
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+        aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+        application_name: fibonacci
+        environment_name: Fibonacci-dev
+        version_label: ${{ github.run_number }}
+        version_description: ${{ github.SHA }}
+        region: us-east-1
