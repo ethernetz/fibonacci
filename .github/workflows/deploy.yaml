@@ -113,6 +113,7 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
         application_name: fibonacci
         environment_name: Fibonacci-dev
+        existing_bucket_name: elasticbeanstalk-us-east-1-676753199952
         version_label: ${{ github.run_number }}
         version_description: ${{ github.SHA }}
         region: us-east-1
