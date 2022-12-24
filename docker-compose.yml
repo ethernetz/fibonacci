@@ -34,5 +34,5 @@ services:
 
 secrets:
   fibonacci_values_db_password:
-    name: "arn:aws:rds:us-east-1:676753199952:db:fibonacci-values-db"
+    name: "arn:aws:secretsmanager:us-east-1:676753199952:secret:rds!db-8b22adc4-b5b9-4072-a5f1-279a3fbb858b-7HePV5"
     external: true
