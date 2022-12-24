@@ -9,21 +9,22 @@ services:
     mem_limit: 128m
     hostname: api
     secrets:
-      - PGPASSWORD
+      - fibonacci_values_db_password
     environment:
-      - REDIS_HOST=$REDIS_HOST
-      - REDIS_PORT=$REDIS_PORT
-      - PGUSER=$PGUSER
-      - PGHOST=$PGHOST
-      - PGDATABASE=$PGDATABASE
-      - PGPORT=$PGPORT
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      PGUSER: $PGUSER
+      PGHOST: $PGHOST
+      PGDATABASE: $PGDATABASE
+      PGPASSWORD: /run/secrets/fibonacci_values_db_password
+      PGPORT: $PGPORT
   worker:
     image: "ethernetz/fibonacci-worker"
     mem_limit: 128m
     hostname: worker
     environment:
-      - REDIS_HOST=$REDIS_HOST
-      - REDIS_PORT=$REDIS_PORT
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
   nginx:
     image: "ethernetz/fibonacci-nginx"
     mem_limit: 128m
@@ -32,6 +33,6 @@ services:
       - "80:80"
 
 secrets:
-  PGPASSWORD:
+  fibonacci_values_db_password:
     name: "arn:aws:rds:us-east-1:676753199952:db:fibonacci-values-db"
     external: true
