@@ -16,7 +16,7 @@ services:
       PGUSER: $OTHER_PGUSER
       PGHOST: $OTHER_PGHOST
       PGDATABASE: $OTHER_PGDATABASE
-      PGPASSWORD: /run/secrets/fibonacci_values_db_password
+      PGPASSWORD: $OTHER_PGPASSWORD
       PGPORT: $OTHER_PGPORT
   worker:
     image: "ethernetz/fibonacci-worker"
