@@ -13,11 +13,11 @@ services:
     environment:
       REDIS_HOST: $REDIS_HOST
       REDIS_PORT: $REDIS_PORT
-      PGUSER: $PGUSER
-      PGHOST: $PGHOST
-      PGDATABASE: $PGDATABASE
+      PGUSER: $OTHER_PGUSER
+      PGHOST: $OTHER_PGHOST
+      PGDATABASE: $OTHER_PGDATABASE
       PGPASSWORD: /run/secrets/fibonacci_values_db_password
-      PGPORT: $PGPORT
+      PGPORT: $OTHER_PGPORT
   worker:
     image: "ethernetz/fibonacci-worker"
     mem_limit: 128m
