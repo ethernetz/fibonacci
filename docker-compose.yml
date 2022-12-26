@@ -9,7 +9,8 @@ services:
     mem_limit: 128m
     hostname: api
     secrets:
-      - fibonacci_values_db_password
+      - my_secret
+      # - file_secret
     environment:
       REDIS_HOST: $REDIS_HOST
       REDIS_PORT: $REDIS_PORT
@@ -18,7 +19,6 @@ services:
       PGDATABASE: $OTHER_PGDATABASE
       PGPASSWORD: $OTHER_PGPASSWORD
       PGPORT: $OTHER_PGPORT
-      TESTING: /run/secrets/fibonacci_values_db_password
   worker:
     image: "ethernetz/fibonacci-worker"
     mem_limit: 128m
@@ -34,6 +34,8 @@ services:
       - "80:80"
 
 secrets:
-  fibonacci_values_db_password:
+  # file_secret:
+  #   file: ./super_duper_secret.txt
+  my_secret:
     name: "arn:aws:secretsmanager:us-east-1:676753199952:secret:rds!db-8b22adc4-b5b9-4072-a5f1-279a3fbb858b-7HePV5"
     external: true
