@@ -14,10 +14,17 @@ const secretsManager = new AWS.SecretsManager({
     endpoint: keys.AWS_endpoint,
 });
 secretsManager.listSecrets({}, ((err, data) => {
-    console.log('err secrets', err);
-    console.log('success secrets', data);
-
+    console.log('err secrets list', err);
+    console.log('success secrets list', data);
 }))
+
+secretsManager.getSecretValue({
+    SecretId: keys.AWS_rdsDBSecretName
+}, ((err, data) => {
+    console.log('err secrets value', err);
+    console.log('success secrets value', data);
+}))
+
 
 
 // const { SecretsManagerClient, ListSecretsCommand } = require("@aws-sdk/client-secrets-manager");

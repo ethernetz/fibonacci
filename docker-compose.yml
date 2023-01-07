@@ -17,6 +17,7 @@ services:
       - PGPASSWORD=$OTHER_PGPASSWORD
       - PGPORT=$OTHER_PGPORT
       - AWS_region=us-east-1
+      - AWS_rdsDBSecretName=rds!db-8b22adc4-b5b9-4072-a5f1-279a3fbb858b
   worker:
     image: "ethernetz/fibonacci-worker"
     mem_limit: 128m

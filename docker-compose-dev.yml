@@ -36,6 +36,7 @@ services:
       - PGPORT=5432
       - AWS_endpoint=http://aws-localstack:4566
       - AWS_region=us-east-1
+      - AWS_rdsDBSecretName=rds-db-secret-name
   worker:
     build:
       dockerfile: Dockerfile.dev
