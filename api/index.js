@@ -7,18 +7,8 @@ const secretsManagerClient = new SecretsManagerClient({
     region: keys.aws_region,
     endpoint: keys.aws_endpoint,
 });
-
 const getRdsDBSecret = new GetSecretValueCommand({
     SecretId: keys.aws_rdsDBSecretName
-});
-secretsManagerClient.send(getRdsDBSecret).then((secretResponse) => {
-    const x = JSON.parse(secretResponse.SecretString);
-
-    console.log(x.password);
-    console.log('just posted secret response');
-}).catch((err) => {
-    console.log('got an error');
-    console.error(err);
 });
 
 // Express App Setup
