@@ -16,7 +16,6 @@ services:
       - PGDATABASE=$OTHER_PGDATABASE
       - PGPASSWORD=$OTHER_PGPASSWORD
       - PGPORT=$OTHER_PGPORT
-      - AWS_endpoint=http://aws-localstack:4566
       - AWS_region=us-east-1
   worker:
     image: "ethernetz/fibonacci-worker"
