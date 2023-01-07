@@ -11,13 +11,12 @@ services:
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
-      - PGUSER=$OTHER_PGUSER
-      - PGHOST=$OTHER_PGHOST
-      - PGDATABASE=$OTHER_PGDATABASE
-      - PGPASSWORD=$OTHER_PGPASSWORD
-      - PGPORT=$OTHER_PGPORT
-      - AWS_region=us-east-1
-      - AWS_rdsDBSecretName=rds!db-8b22adc4-b5b9-4072-a5f1-279a3fbb858b
+      - PG_USER=$PGUSER
+      - PG_HOST=$PGHOST
+      - PG_DATABASE=$PGDATABASE
+      - PG_PORT=$PGPORT
+      - AWS_REGION=us-east-1
+      - AWS_DBSECRETNAME=rds!db-8b22adc4-b5b9-4072-a5f1-279a3fbb858b
   worker:
     image: "ethernetz/fibonacci-worker"
     mem_limit: 128m

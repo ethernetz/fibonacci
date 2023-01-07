@@ -4,15 +4,17 @@ const keys = require('./keys');
 const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
 
 const secretsManagerClient = new SecretsManagerClient({
-    region: keys.AWS_region,
-    endpoint: keys.AWS_endpoint,
+    region: keys.aws_region,
+    endpoint: keys.aws_endpoint,
 });
 
 const getRdsDBSecret = new GetSecretValueCommand({
-    SecretId: keys.AWS_rdsDBSecretName
+    SecretId: keys.aws_rdsDBSecretName
 });
 secretsManagerClient.send(getRdsDBSecret).then((secretResponse) => {
-    console.log(secretResponse);
+    const x = JSON.parse(secretResponse.SecretString);
+
+    console.log(x.password);
     console.log('just posted secret response');
 }).catch((err) => {
     console.log('got an error');
@@ -31,11 +33,11 @@ app.use(bodyParser.json());
 // Postgres Client Setup
 const { Pool } = require('pg');
 const pgClient = new Pool({
-    user: keys.pgUser,
-    host: keys.pgHost,
-    database: keys.pgDatabase,
-    password: keys.pgPassword,
-    port: keys.pgPort
+    user: keys.pg_user,
+    host: keys.pg_host,
+    database: keys.pg_database,
+    password: async () => JSON.parse((await secretsManagerClient.send(getRdsDBSecret)).SecretString).password,
+    port: keys.pg_port
 });
 
 pgClient.on('error', () => console.log('Lost PG connection!'))
