@@ -105,7 +105,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     - name: Generate deployment package
-      run: zip deploy.zip docker-compose.yml super_duper_secret.txt
+      run: zip deploy.zip docker-compose.yml
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v18
       with:
