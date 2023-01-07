@@ -1,11 +1,12 @@
 {
     "dependencies": {
-        "express": "*",
-        "pg": "8.0.3",
-        "redis": "2.8.0",
+        "aws-sdk": "^2.1290.0",
+        "body-parser": "*",
         "cors": "2.8.4",
+        "express": "*",
         "nodemon": "1.18.3",
-        "body-parser": "*"
+        "pg": "8.0.3",
+        "redis": "2.8.0"
     },
     "scripts": {
         "dev": "nodemon",

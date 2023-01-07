@@ -5,5 +5,7 @@ module.exports = {
     pgHost: process.env.PGHOST,
     pgDatabase: process.env.PGDATABASE,
     pgPassword: process.env.PGPASSWORD,
-    pgPort: process.env.PGPORT
+    pgPort: process.env.PGPORT,
+    AWS_endpoint: process.env.AWS_endpoint,
+    AWS_region: process.env.AWS_region
 }

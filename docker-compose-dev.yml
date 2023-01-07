@@ -17,12 +17,15 @@ services:
     ports:
       - '3050:80'
   api:
+    depends_on:
+      aws-localstack:
+        condition: service_healthy
     build:
       dockerfile: Dockerfile.dev
       context: ./api
     volumes:
-      - /home/node/app/node_modules
       - ./api:/home/node/app
+      - ./.aws:/home/node/.aws
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -31,6 +34,8 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+      - AWS_endpoint=http://aws-localstack:4566
+      - AWS_region=us-east-1
   worker:
     build:
       dockerfile: Dockerfile.dev
@@ -59,3 +64,14 @@ services:
     volumes:
       - /home/node/app/node_modules
       - ./client:/home/node/app
+  aws-localstack:
+    image: localstack/localstack:latest
+    environment:
+      - DEBUG=1
+      - SERVICES=secretsmanager
+    ports:
+      - "4566:4566"
+      - '8055:8080'
+    volumes:
+      - "./aws-localstack/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # ready hook
+      - /var/run/docker.sock:/var/run/docker.sock

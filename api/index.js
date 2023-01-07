@@ -1,5 +1,70 @@
 const keys = require('./keys');
 
+// AWS secrets manager Setup
+
+// Load the AWS SDK for Node.js
+var AWS = require('aws-sdk');
+// Set the region 
+AWS.config.update({
+    region: keys.AWS_region,
+});
+
+const secretsManager = new AWS.SecretsManager({
+    region: keys.AWS_region,
+    endpoint: keys.AWS_endpoint,
+});
+secretsManager.listSecrets({}, ((err, data) => {
+    console.log('err secrets', err);
+    console.log('success secrets', data);
+
+}))
+
+
+// const { SecretsManagerClient, ListSecretsCommand } = require("@aws-sdk/client-secrets-manager");
+
+// const secretsManagerClient = new SecretsManagerClient({
+//     region: "us-east-1",
+//     credentials: {
+//         accessKeyId: 'accessKeyId',
+//         secretAccessKey: 'secretAccessKey'
+//     },
+//     endpoint: "aws-localstack:4566"
+// });
+
+
+// const getSecretValueCommand = new GetSecretValueCommand({
+//     SecretId: 
+// });
+// const listSecretsCommand = new ListSecretsCommand({});
+// secretsManagerClient.send(listSecretsCommand).then((secretResponse) => {
+//     console.log(secretResponse);
+//     console.log('just posted secret response');
+// }).catch((err) => {
+//     console.log('got an error');
+//     console.error(err);
+// });
+
+// console.log(secretsManagerClient.config);
+// var params = {
+//     SecretId: "MyTestDatabaseSecret"
+// };
+// secretsManager.get(params, function (err, data) {
+//     if (err) console.log(err, err.stack); // an error occurred
+//     else console.log(data);           // successful response
+//     /*
+//     data = {
+//      ARN: "arn:aws:secretsmanager:us-west-2:123456789012:secret:MyTestDatabaseSecret-a1b2c3", 
+//      CreatedDate: <Date Representation>, 
+//      Name: "MyTestDatabaseSecret", 
+//      SecretString: "{\n  \"username\":\"david\",\n  \"password\":\"EXAMPLE-PASSWORD\"\n}\n", 
+//      VersionId: "EXAMPLE1-90ab-cdef-fedc-ba987SECRET1", 
+//      VersionStages: [
+//         "AWSPREVIOUS"
+//      ]
+//     }
+//     */
+// });
+
 // Express App Setup
 const express = require('express');
 const bodyParser = require('body-parser');
