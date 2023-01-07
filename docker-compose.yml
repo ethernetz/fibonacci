@@ -9,13 +9,15 @@ services:
     mem_limit: 128m
     hostname: api
     environment:
-      REDIS_HOST: $REDIS_HOST
-      REDIS_PORT: $REDIS_PORT
-      PGUSER: $OTHER_PGUSER
-      PGHOST: $OTHER_PGHOST
-      PGDATABASE: $OTHER_PGDATABASE
-      PGPASSWORD: $OTHER_PGPASSWORD
-      PGPORT: $OTHER_PGPORT
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - PGUSER=$OTHER_PGUSER
+      - PGHOST=$OTHER_PGHOST
+      - PGDATABASE=$OTHER_PGDATABASE
+      - PGPASSWORD=$OTHER_PGPASSWORD
+      - PGPORT=$OTHER_PGPORT
+      - AWS_endpoint=http://aws-localstack:4566
+      - AWS_region=us-east-1
   worker:
     image: "ethernetz/fibonacci-worker"
     mem_limit: 128m
